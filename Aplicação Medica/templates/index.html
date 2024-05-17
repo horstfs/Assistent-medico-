@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h2>Bem-vindo ao Sistema Médico!</h2>
+        <p>Escolha uma opção para começar:</p>
+        <a class="btn btn-primary" href="{{ url_for('cadastrar_paciente') }}">Cadastrar Paciente</a>
+        <a class="btn btn-secondary" href="{{ url_for('pesquisar_paciente') }}">Pesquisar Paciente por CPF</a>
+    </div>
+{% endblock %}

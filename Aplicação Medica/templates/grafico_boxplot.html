@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Gráfico de Boxplot (Distribuição de Leucócitos)</h2>
+    
+    <!-- Exibir o elemento para o gráfico -->
+    <canvas id="boxplotChart" width="400" height="200"></canvas>  
+    
+    <!-- Carregar Chart.js e a extensão para gráficos de boxplot -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-box-and-violin-plot"></script>
+    
+    <script>
+        // Criar o gráfico de boxplot com Chart.js
+        var ctx = document.getElementById('boxplotChart').getContext('2d');
+        var boxplotChart = new Chart(ctx, {
+            type: 'boxplot',  // Tipo de gráfico
+            data: {
+                labels: ['Leucócitos'],  // Rótulo para o boxplot
+                datasets: [{
+                    label: 'Distribuição de Leucócitos',
+                    data: JSON.parse('{{ boxplot_data|safe }}'),  // Dados para o gráfico
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Cor do preenchimento
+                    borderColor: 'rgba(255, 99, 132, 1)',  // Cor do contorno
+                    borderWidth: 1,
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,  // Iniciar do zero
+                        },
+                    }],
+                },
+                title: {
+                    display: true,  // Exibir título
+                    text: 'Distribuição de Leucócitos',  // Título do gráfico
+                },
+            },
+        });
+    </script>
+{% endblock %}

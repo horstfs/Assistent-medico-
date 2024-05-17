@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Cadastrar Médico</h2>
+    
+    <form method="post">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div>
+            <label for="crm">CRM:</label>
+            <input type="text" id="crm" name="crm" required>
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <button type="submit">Cadastrar</button>
+    </form>
+    
+{% endblock %}

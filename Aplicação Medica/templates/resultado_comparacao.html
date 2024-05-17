@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Resultado da Comparação</h2>
+
+<!-- Adicionar um gráfico de dispersão -->
+<canvas id="comparisonChart" width="400" height="200"></canvas>
+
+<!-- Inclua o Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const valores1 = JSON.parse('{{ valores1 | safe }}');  // Primeiro conjunto de dados
+const valores2 = JSON.parse('{{ valores2 | safe }}');  // Segundo conjunto de dados
+
+// Criar um conjunto de dados para um gráfico de dispersão
+const scatterData = valores1.map((x, idx) => ({ x: parseFloat(x), y: parseFloat(valores2[idx]) }));
+
+const ctx = document.getElementById("comparisonChart").getContext("2d");
+
+const comparisonChart = new Chart(ctx, {
+    type: "scatter",
+    data: {
+        datasets: [{
+            label: "Comparação entre Variáveis",
+            data: scatterData,
+            backgroundColor: "rgba(75, 192, 192, 0.5)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
+            showLine: true  // Mostrar linha conectando pontos
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: "Variável 1"
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: "Variável 2"
+                }
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

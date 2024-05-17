@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Comparação de Exames de Urina do Paciente</h2>
+
+    <!-- Exibir informações do paciente -->
+    <div>
+        <p><strong>Nome:</strong> {{ paciente[0] }}</p>
+        <p><strong>CPF:</strong> {{ paciente[1] }}</p>
+        <p><strong>Tipo Sanguíneo:</strong> {{ paciente[2] }}</p>
+    </div>
+    
+    <canvas id="urinaChart" width="400" height="200"></canvas>  <!-- Elemento para o gráfico -->
+    
+    <!-- Carregando o Chart.js para criar gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Criação do gráfico de linha com Chart.js
+        var ctx = document.getElementById('urinaChart').getContext('2d');
+        var urinaChart = new Chart(ctx, {
+            type: 'line',  // Tipo de gráfico (linha)
+            data: {
+                labels: JSON.parse('{{ datas|safe }}'),  // Datas dos exames de urina
+                datasets: [
+                    {
+                        label: 'Densidade',  // Rótulo para densidade
+                        data: JSON.parse('{{ densidade|safe }}'),  // Dados para densidade
+                        borderColor: 'rgba(255, 99, 132, 1)',  // Cor da linha
+                        fill: false,  // Sem preenchimento
+                    },
+                    {
+                        label: 'pH',  // Rótulo para pH
+                        data: JSON.parse('{{ ph|safe }}'),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Proteína',  // Rótulo para proteína
+                        data: JSON.parse('{{ proteina|safe }}'),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Glicose',  // Rótulo para glicose
+                        data: JSON.parse('{{ glicose|safe }}'),
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Cetonas',  // Rótulo para cetonas
+                        data: JSON.parse('{{ cetonas|safe }}'),
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,  // Gráfico responsivo
+                title: {
+                    display: true,  // Mostrar título
+                    text: 'Comparação de Exames de Urina',  // Título do gráfico
+                },
+                scales: {
+                    xAxes: [{
+                        type: 'time',  // Eixo de tempo para mostrar datas
+                        time: {
+                            parser: 'YYYY-MM-DD',  // Formato de data esperado
+                            unit: 'day',  // Unidade do eixo x
+                        },
+                    }],
+                },
+            },
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Inserir Exame de Urina</h2>
+    <form method="post">
+        <div class="form-group">
+            <label para="data">Data do Exame:</label>
+            <input type="date" name="data" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label para="densidade">Densidade:</label>
+            <input type="text" name="densidade" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="ph">pH:</label>
+            <input type="text" name="ph" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="proteina">Proteína:</label>
+            <input type="text" name="proteina" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="glicose">Glicose:</label>
+            <input type="text" name="glicose" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="cetonas">Cetonas:</label>
+            <input type="text" name="cetonas" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="hemoglobina">Hemoglobina:</label>
+            <input type="text" name="hemoglobina" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="leucócitos">Leucócitos:</label>
+            <input type="text" name="leucócitos" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Inserir Exame de Urina</button>
+    </form>
+{% endblock %}

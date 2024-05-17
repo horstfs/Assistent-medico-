@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Pesquisar Paciente por CPF</h2>
+    <form method="post" class="form-inline">
+        <div class="form-group">
+            <label para="cpf" class="mr-2">CPF:</label>
+            <input type="text" name="cpf" class="form-control mr-2" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </form>
+{% endblock %}

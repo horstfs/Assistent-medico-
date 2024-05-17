@@ -1,0 +1,32 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Estilos CSS podem ser adicionados aqui */
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <label for="crm">CRM:</label><br>
+        <input type="text" id="crm" name="crm"><br>
+        <label for="senha">Senha:</label><br>
+        <input type="password" id="senha" name="senha"><br><br>
+        <input type="submit" value="Entrar">
+    </form>
+</body>
+</html>

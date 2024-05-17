@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Informações do Paciente</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nome:</th>
+                <td>{{ paciente[0] }}</td>
+            </tr>
+            <tr>
+                <th>CPF:</th>
+                <td>{{ paciente[1] }}</td>
+            </tr>
+            <tr>
+                <th>Tipo Sanguíneo:</th>
+                <td>{{ paciente[2] }}</td>
+            </tr>
+            <tr>
+                <th>Data de Nascimento:</th>
+                <td>{{ paciente[3] }}</td>
+            </tr>
+            <tr>
+                <th>Endereço:</th>
+                <td>{{ paciente[4] }}</td>
+            </tr>
+            <tr>
+                <th>Telefone:</th>
+                <td>{{ paciente[5] }}</td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <td>{{ paciente[6] }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Links para inserir exames -->
+    <div class="mt-4">
+        <h3>Exames</h3>
+        <ul>
+            <li><a href="{{ url_for('cadastrar_hemograma', paciente_id=paciente[7]) }}">Inserir Hemograma</a></li>
+            <li><a href="{{ url_for('cadastrar_exame_urina', paciente_id=paciente[7]) }}">Inserir Exame de Urina</a></li>
+            <li><a href="{{ url_for('cadastrar_historico_peso', paciente_id=paciente[7]) }}">Inserir Peso</a></li>
+            <!-- Links para comparação -->
+
+
+            <h3>Exames e Comparações</h3>
+            <li><a href="{{ url_for('comparar_hemograma', paciente_id=paciente[7]) }}">Comparar Hemograma</a></li>
+            <li><a href="{{ url_for('comparar_exame_urina', paciente_id=paciente[7]) }}">Comparar Exame de Urina</a></li>
+            <li><a href="{{ url_for('comparar_historico_peso', paciente_id=paciente[7]) }}">Comparar Peso</a></li>
+
+            <h3>Graficos</h3>
+              <!-- Seção para links de gráficos -->
+            <li><a href="{{ url_for('grafico_dispersao', paciente_id=paciente[7]) }}">Gráfico de Dispersão (Peso x Idade)</a></li>
+            <li><a href="{{ url_for('grafico_radar', paciente_id=paciente[7]) }}">Gráfico de Radar (Perfil Médico)</a></li>
+            <li><a href="{{ url_for('grafico_boxplot', paciente_id=paciente[7]) }}">Gráfico de Boxplot (Distribuição de Resultados)</a></li>
+        </ul>
+    </div>
+
+
+    <a class="btn btn-secondary" href="{{ url_for('index') }}">Voltar à Página Inicial</a>
+{% endblock %}

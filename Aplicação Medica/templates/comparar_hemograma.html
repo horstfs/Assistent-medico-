@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Comparação de Hemogramas</h2>
+    
+    <!-- Exibir informações do paciente -->
+    <div>
+        <p><strong>Nome:</strong> {{ paciente[0] }}</p>
+        <p><strong>CPF:</strong> {{ paciente[1] }}</p>
+        <p><strong>Tipo Sanguíneo:</strong> {{ paciente[2] }}</p>
+    </div>
+    
+    <canvas id="hemogramaChart" width="400" height="200"></canvas>  <!-- Elemento para o gráfico -->
+    
+    <!-- Adicionando o Chart.js para criar gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Criação do gráfico usando Chart.js
+        var ctx = document.getElementById('hemogramaChart').getContext('2d');
+        var hemogramaChart = new Chart(ctx, {
+            type: 'line',  // Gráfico de linha
+            data: {
+                labels: JSON.parse('{{ datas|safe }}'),  // Datas dos exames
+                datasets: [
+                    {
+                        label: 'Hemoglobina',
+                        data: JSON.parse('{{ hemoglobina|safe }}'),  // Valores de hemoglobina
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Hematocrito',
+                        data: JSON.parse('{{ hematocrito|safe }}'),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Eritrócitos',
+                        data: JSON.parse('{{ eritrócitos|safe }}'),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Leucócitos',
+                        data: JSON.parse('{{ leucócitos|safe }}'),
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: 'Plaquetas',
+                        data: JSON.parse('{{ plaquetas|safe }}'),
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Comparação de Hemogramas',
+                },
+                scales: {
+                    xAxes: [{ 
+                        type: 'time',  // Eixo de tempo para mostrar datas
+                        time: {
+                            parser: 'YYYY-MM-DD',  // Formato de data esperado
+                            unit: 'day',  // Unidade de tempo para o eixo x
+                        },
+                    }],
+                },
+            },
+        });
+    </script>
+{% endblock %}

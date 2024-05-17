@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Comparar Variáveis entre Pacientes</h2>
+
+<form method="POST" action="/resultado_comparacao">
+    <div>
+        <label for="tabela1">Selecione a primeira tabela:</label>
+        <select id="tabela1" name="tabela1" required>
+            <!-- As opções serão preenchidas dinamicamente -->
+        </select>
+    </div>
+
+    <div>
+        <label para="coluna1">Selecione a primeira coluna:</label>
+        <select id="coluna1" name="coluna1" required>
+            <!-- As opções serão preenchidas dinamicamente -->
+        </select>
+    </div>
+
+    <div>
+        <label para="tabela2">Selecione a segunda tabela:</label>
+        <select id="tabela2" name="tabela2" required>
+            <!-- As opções serão preenchidas dinamicamente -->
+        </select>
+    </div>
+
+    <div>
+        <label para="coluna2">Selecione a segunda coluna:</label>
+        <select id="coluna2" name="coluna2" required>
+            <!-- As opções serão preenchidas dinamicamente -->
+        </select>
+    </div>
+
+    <button type="submit">Comparar</button>  <!-- Certifique-se de que é um botão de envio -->
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!-- Certifique-se de que o jQuery está sendo carregado -->
+<script>
+$(document).ready(function() {
+    // Buscar todas as colunas do banco de dados
+    $.ajax({
+        url: "/obter_colunas",  // Rota para obter as colunas
+        method: "GET",
+        success: function(colunas_por_tabela) {
+            // Preencher os selects das tabelas
+            for (var tabela in colunas_por_tabela) {
+                $("#tabela1").append(new Option(tabela, tabela));  // Adiciona as tabelas ao select
+                $("#tabela2").append(new Option(tabela, tabela));  // Adiciona as tabelas ao select
+            }
+
+            // Atualizar as colunas ao selecionar uma tabela
+            $("#tabela1").change(function() {
+                var tabela_selecionada = $(this).val();
+                $("#coluna1").empty();  // Limpa as colunas atuais
+                colunas_por_tabela[tabela_selecionada].forEach(function(coluna) {
+                    $("#coluna1").append(new Option(coluna, coluna));  // Adiciona as novas colunas
+                });
+            });
+
+            $("#tabela2").change(function() {
+                var tabela_selecionada = $(this).val();
+                $("#coluna2").empty();  // Limpa as colunas atuais
+                colunas_por_tabela[tabela_selecionada].forEach(function(coluna) {
+                    $("#coluna2").append(new Option(coluna, coluna));  // Adiciona as novas colunas
+                });
+            });
+        },
+        error: function(error) {
+            console.error("Erro ao obter colunas:", error);  // Em caso de erro, exibe no console
+        }
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Comparação do Histórico de Peso</h2>
+    <div>
+        <p><strong>Nome:</strong> {{ paciente[0] }}</p>
+        <p><strong>CPF:</strong> {{ paciente[1] }}</p>
+        <p><strong>Tipo Sanguíneo:</strong> {{ paciente[2] }}</p>
+    </div>
+    <canvas id="pesoChart" width="400" height="200"></canvas>  <!-- Elemento para o gráfico -->
+    
+    <!-- Carregando o Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Criação do gráfico de linha com Chart.js
+        var ctx = document.getElementById('pesoChart').getContext('2d');
+        var pesoChart = new Chart(ctx, {
+            type: 'line',  // Tipo de gráfico (linha)
+            data: {
+                labels: JSON.parse('{{ datas|safe }}'),  // Datas dos registros
+                datasets: [
+                    {
+                        label: 'Peso (kg)',  // Rótulo do conjunto de dados
+                        data: JSON.parse('{{ peso|safe }}'),  // Valores do peso
+                        borderColor: 'rgba(75, 192, 192, 1)',  // Cor da linha
+                        fill: false,  // Sem preenchimento
+                    },
+                ],
+            },
+            options: {
+                responsive: true,  // Gráfico responsivo
+                title: {
+                    display: true,  // Mostrar título
+                    text: 'Histórico de Peso do Paciente',  // Título do gráfico
+                },
+                scales: {
+                    xAxes: [{
+                        type: 'time',  // Eixo de tempo para exibir datas
+                        time: {
+                            parser: 'YYYY-MM-DD',  // Formato de data
+                            unit: 'day',  // Unidade do eixo x (dias)
+                        },
+                    }],
+                },
+            },
+        });
+    </script>
+{% endblock %}

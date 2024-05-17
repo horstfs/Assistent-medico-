@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Gráfico de Radar (Perfil Médico)</h2>
+    
+    <canvas id="radarChart" width="400" height="200"></canvas>  <!-- Elemento para o gráfico -->
+    
+    <!-- Carregando o Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Criação do gráfico de radar com Chart.js
+        var ctx = document.getElementById('radarChart').getContext('2d');
+        var radarChart = new Chart(ctx, {
+            type: 'radar',  // Gráfico de radar
+            data: {
+                labels: ['Hemoglobina', 'Hematocrito', 'Eritrócitos', 'Leucócitos', 'Plaquetas'],  // Rótulos para o gráfico
+                datasets: [{
+                    label: 'Perfil Médio',
+                    data: JSON.parse('{{ radar_data|safe }}'),  // Dados para o gráfico
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                }],
+            },
+            options: {
+                responsive: true,
+                scale: {
+                    ticks: {
+                        beginAtZero: true,  // Iniciar a escala do zero
+                    },
+                },
+            },
+        });
+    </script>
+{% endblock %}

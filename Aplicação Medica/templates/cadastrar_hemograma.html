@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Inserir Hemograma</h2>
+    <form method="post">
+        <div class="form-group">
+            <label para="data">Data do Exame:</label>
+            <input type="date" name="data" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label para="hemoglobina">Hemoglobina:</label>
+            <input type="text" name="hemoglobina" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="hematocrito">Hematocrito:</label>
+            <input type="text" name="hematocrito" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="eritrócitos">Eritrócitos:</label>
+            <input type="text" name="eritrócitos" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="leucócitos">Leucócitos:</label>
+            <input type="text" name="leucócitos" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label para="plaquetas">Plaquetas:</label>
+            <input type="text" name="plaquetas" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Inserir Hemograma</button>
+    </form>
+{% endblock %}
